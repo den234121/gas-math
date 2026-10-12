@@ -2,9 +2,10 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
+
 # Загрузка данных
 df = pd.read_excel("assets/gas_parameters.xlsx", sheet_name="Sheet1")
-st.subheader("Оределите состав смеси газов в %")
+st.header("Оределите состав смеси газов в %")
 
 # 1. Создание таблицы исходных данных по составу газа
 # 1.1. Ограничение представления таблицы в приложении (все свойства газов в колонках [3:] скрыты)
@@ -40,9 +41,12 @@ edited_df = st.data_editor(
 # 2.1 Extract the user input composition array
 total_mole = edited_df.iloc[:, 3].copy().sum()
 if total_mole > 100:
-    st.error("Сумма долей смеси превышает 100%")
+    st.error("Сумма долей смеси превышает 100%", icon="🚨")
 elif total_mole < 95:
-    st.warning("Сумма долей смеси менее 95%, это может привести к неточности расчетов")
+    st.warning(
+        "Сумма долей смеси менее 95%, это может привести к неточности расчетов",
+        icon="⚠️",
+    )
 
 # --Showing a circular diagram
 # 2.2 Filter out components with zero or negative values for the chart
