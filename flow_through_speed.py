@@ -5,7 +5,7 @@ from config import CONSTANTS
 st.header("Предварительный расчет потока газа через щель при заданной скорости")
 st.subheader("Задайте геометрию щели")
 
-diameter = st.number_input("Введите диаметр вала или отверстия в мм")
+diameter = st.number_input("Введите диаметр вала в мм")
 clearance = st.number_input("Введите зазор в щели в мм")
 area = math.pi * diameter * clearance / (10**6)
 st.write(f"Площадь щели: {area * 10**6:.2f} мм²")
@@ -18,9 +18,6 @@ calc_flow = st.radio(
 
 pressure = st.number_input("Введите избыточное давление газа в МПа")
 pressure = pressure * 10**6 + CONSTANTS["atm_pressure"]
-st.write(pressure)
-st.write(pressure / CONSTANTS["atm_pressure"])
-st.write(area)
 
 if calc_flow == "расход газа":
     speed = st.number_input("Введите скорость газа в м/с.")
@@ -37,3 +34,5 @@ elif speed < 5:
     st.error("Скорость ниже 5 м/с. Высокий риск перетечек", icon="🚨")
 else:
     st.warning("Скорость выше 5, но ниже 7 м/с. Есть риск перетечек", icon="⚠️")
+
+st.session_state["flow"] = flow

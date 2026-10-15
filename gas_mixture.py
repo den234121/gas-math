@@ -77,10 +77,11 @@ if sum_fractions > 0:
     # Нормализуем доли на случай, если сумма не равна ровно 100%
     w_fracs = fractions / sum_fractions
 
-    # Получаем имена колонок по индексам 4, 5 и 6
+    # Получаем имена колонок по индексам 4, 5, 6, 7
     col_density = df.columns[4]
     col_r = df.columns[5]
     col_adiab = df.columns[6]
+    col_molar_mass = df.columns[7]
 
     # Конвертируем значения колонок в числовой формат (ошибки преобразуем в NaN)
     # и заполняем пустые ячейки нулями
@@ -102,16 +103,32 @@ if sum_fractions > 0:
         .values
     )
 
+    molar_mass = (
+        pd.to_numeric(
+            df[col_molar_mass].astype(str).str.replace(",", "."), errors="coerce"
+        )
+        .fillna(0)
+        .values
+    )
+
     # Расчет свойств смеси (средневзвешенные значения)
     mix_density = (density_values * w_fracs).sum()
     mix_r = (r_values * w_fracs).sum()
     mix_adiabatic = (adiab_values * w_fracs).sum()
+    mix_molar_mass = (molar_mass * w_fracs).sum()
+
+    st.session_state["density"] = mix_density
+    st.session_state["gas_constant"] = mix_r
+    st.session_state["adiabat"] = mix_adiabatic
+    st.session_state["molar_mass"] = mix_molar_mass
 
     st.subheader("Характеристики газовой смеси")
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.metric("Плотность смеси", f"{mix_density:.4f}")
+        st.metric("Плотность смеси, кг/м³", f"{mix_density:.4f}")
     with col2:
-        st.metric("Газовая постоянная (R)", f"{mix_r:.4f}")
+        st.metric("Газовая постоянная, Дж/(кг·К)", f"{mix_r:.4f}")
     with col3:
         st.metric("Показатель адиабаты", f"{mix_adiabatic:.4f}")
+    with col4:
+        st.metric("Молярная масса, кг/моль", f"{mix_molar_mass:.5f}")
