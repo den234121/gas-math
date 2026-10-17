@@ -15,8 +15,14 @@ calc_page2 = st.Page(
     icon=":material/calculate:",
 )
 
+calc_page3 = st.Page(
+    "throttle.py",
+    title="Измерение расхода газа через СУ",
+    icon=":material/calculate:",
+)
+
 # 2. Create the sidebar navigation
-pg = st.navigation([main_page, calc_page1, calc_page2])
+pg = st.navigation([main_page, calc_page1, calc_page2, calc_page3])
 
 # 3. Run the selected page application
 pg.run()
