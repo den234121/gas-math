@@ -7,7 +7,7 @@ st.header("Расчет критического истечения газа ч�
 R = CONSTANTS["universal_gas_constant"]
 
 # Get all dependencies, inputs, and environment baselines dynamically
-po, Rgas, k, M, flow, P1, T1 = get_shared_gas_inputs(page_prefix="crit")
+po, Rgas, k, M, mu, flow, P1, T1 = get_shared_gas_inputs(page_prefix="crit")
 
 P2 = (
     st.number_input(
