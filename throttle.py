@@ -88,7 +88,7 @@ x = (
 )
 # Q = x * sqrt(p *delta_p) -> delta_p = Q**2 / (x**2 * p)
 delta_p = flow_si**2 / (x**2 * P1)
-st.write(f"Перепад на диафрагме {delta_p / 1000} кПа")
+st.write(f"Перепад на диафрагме {round(delta_p / 1000, 3)} кПа")
 
 st.subheader("Вывод формулы для АЛ:")
 temp_sensor = st.checkbox(
