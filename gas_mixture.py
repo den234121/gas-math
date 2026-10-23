@@ -12,8 +12,6 @@ def load_base_data():
 # Load the file (this only runs once; future runs are pulled from cache)
 df_raw = load_base_data()
 
-st.header("Определите состав смеси газов в %")
-
 # 0.2. Persist the user's specific EDITS across pages using session state
 if "df_4_columns" not in st.session_state:
     st.session_state["df_4_columns"] = df_raw.iloc[:, :4]
