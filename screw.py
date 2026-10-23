@@ -1,6 +1,8 @@
 import streamlit as st
 from math import pi
 
+st.header("Расчет крепежа на прочность.")
+
 screw = {
     "M3": 2.675,  # Шаг 0.5 мм
     "M4": 3.545,  # Шаг 0.7 мм
