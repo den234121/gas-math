@@ -3,7 +3,7 @@ import streamlit as st
 from config import CONSTANTS
 from utils import get_shared_gas_inputs  # Import the new function
 
-st.header("Расчет критического истечения газа через дюзу")
+st.header("Измерение расхода газа через сужающее устройство")
 R = CONSTANTS["universal_gas_constant"]
 
 # Get all dependencies, inputs, and environment baselines dynamically
