@@ -25,7 +25,7 @@ Tnom = 293.15
 
 d_pipe = st.number_input(
     "Введите диаметр проходного сечения трубы в мм",
-    min_value=0.0,
+    min_value=8.0,
     value=20.0,
     key="crit_d_pipe",
 )
