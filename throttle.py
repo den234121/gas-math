@@ -7,9 +7,20 @@ st.header("Измерение расхода газа через сужающе�
 R = CONSTANTS["universal_gas_constant"]
 
 # Get all dependencies, inputs, and environment baselines dynamically
-po, Rgas, k, M, mu, flow, P1, T1 = get_shared_gas_inputs(page_prefix="crit")
+po, Rgas, k, M, mu, P1, T1 = get_shared_gas_inputs(page_prefix="crit")
 
+
+# 3. Flow Rate Input
+if "flow" in st.session_state and st.session_state["flow"] > 0:
+    flow = st.session_state["flow"]
+else:
+    flow = st.number_input(
+        'Проведите расчет в закладке "Расход через скорость газа в щели".\nЛибо вручную введите расход газа в нм³/ч',
+        min_value=0.0,
+        value=0.0,
+    )
 flow_si = flow / 3600  # Convert flow from nм³/ч to m³/s
+
 Tnom = 293.15
 
 d_pipe = st.number_input(

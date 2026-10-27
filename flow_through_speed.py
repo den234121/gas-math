@@ -5,8 +5,16 @@ from config import CONSTANTS
 st.header("Предварительный расчет потока газа через щель при заданной скорости")
 st.subheader("Задайте геометрию щели")
 
-diameter = st.number_input("Введите диаметр вала в мм")
-clearance = st.number_input("Введите радиальный зазор в щели в мм")
+diameter = st.number_input(
+    "Введите диаметр вала в мм",
+    min_value=0.0,
+    value=100.0,
+)
+clearance = st.number_input(
+    "Введите радиальный зазор в щели в мм",
+    min_value=0.0,
+    value=0.35,
+)
 area = math.pi * diameter * clearance / (10**6)
 st.write(f"Площадь щели: {area * 10**6:.2f} мм²")
 

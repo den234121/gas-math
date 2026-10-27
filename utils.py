@@ -29,16 +29,7 @@ def get_shared_gas_inputs(page_prefix: str):
     with col3:
         st.metric("Индивидуальная газовая постоянная, Дж/(кг·К)", f"{Rgas:.1f}")
 
-    # 3. Flow Rate Input
-    if "flow" in st.session_state and st.session_state["flow"] > 0:
-        flow = st.session_state["flow"]
-    else:
-        flow = st.number_input(
-            'Проведите расчет в закладке "Расход через скорость газа в щели".\nЛибо вручную введите расход газа в нм³/ч',
-            min_value=0.0,
-            value=0.0,
-            key=f"{page_prefix}_manual_flow",
-        )
+    # omitted
 
     # 4. Process Pressures and Temperature
     P1 = (
@@ -61,4 +52,4 @@ def get_shared_gas_inputs(page_prefix: str):
         + 273.15
     )
 
-    return po, Rgas, k, M, mu, flow, P1, T1
+    return po, Rgas, k, M, mu, P1, T1
