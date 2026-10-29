@@ -110,22 +110,15 @@ if calc_type == "расход газа":
 
 # 8. Output Results
 st.subheader("Параметры критического истечения")
-out_col1, out_col2, out_col3, out_col4, out_col5, out_col6 = st.columns(6)
-with out_col1:
-    st.metric(
-        "Давление до дросселя, МПа(изб)",
-        f"{(P1 - CONSTANTS['atm_pressure']) / 10**6:.3f}",
-    )
-with out_col2:
-    st.metric(
-        "Давление после дросселя, МПа(изб)",
-        f"{(P2 - CONSTANTS['atm_pressure']) / 10**6:.3f}",
-    )
-with out_col3:
-    st.metric("Расход газа нм³/ч", f"{flow:.3f}")
-with out_col4:
-    st.metric("Температура газа до дюзы, C", f"{(T1 - 273.15):.1f}")
-with out_col5:
-    st.metric("Скорость критического истечения, м/с", f"{sp_cr:.1f}")
-with out_col6:
-    st.metric("Диаметр дюзы, мм", f"{d:.2f}")
+st.metric(
+    "Давление до дросселя, МПа(изб)",
+    f"{(P1 - CONSTANTS['atm_pressure']) / 10**6:.3f}",
+)
+st.metric(
+    "Давление после дросселя, МПа(изб)",
+    f"{(P2 - CONSTANTS['atm_pressure']) / 10**6:.3f}",
+)
+st.metric("Расход газа нм³/ч", f"{flow:.3f}")
+st.metric("Температура газа до дюзы, C", f"{(T1 - 273.15):.1f}")
+st.metric("Скорость критического истечения, м/с", f"{sp_cr:.1f}")
+st.metric("Диаметр дюзы, мм", f"{d:.2f}")
