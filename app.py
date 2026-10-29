@@ -10,8 +10,8 @@ calc_page1 = st.Page(
 )
 
 calc_page2 = st.Page(
-    "critical_flow.py",
-    title="Критическое истечение газа в дюзе",
+    "restrictive_orifice.py",
+    title="Расчет лимитирующей дюзы",
     icon=":material/calculate:",
 )
 
