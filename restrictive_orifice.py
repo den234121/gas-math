@@ -1,5 +1,7 @@
 import math
+
 import streamlit as st
+
 from config import CONSTANTS
 from utils import get_shared_gas_inputs  # Import the new function
 
@@ -50,7 +52,7 @@ if calc_type == "диаметр дюзы":
     flow_si = flow / 3600  # Convert flow from nm³/hr to m³/s
     Qm = flow_si * po
 
-    # Flow Regime Logic Block
+    # Calc diameter.
     if P2 / P1 <= b_critical:
         st.success(
             f"Критическое истечение газа через дюзу. P2/P1 <= b_critical ({P2 / P1:.4f} <= {b_critical:.4f})"
@@ -67,10 +69,14 @@ if calc_type == "диаметр дюзы":
         sp_cr = (
             (2 * k) / (k - 1) * (P1 / po1) * (1 - (P2 / P1) ** ((k - 1) / k))
         ) ** 0.5
-        multiplier = math.sqrt(
-            (2 * k) / (k - 1) * ((P2 / P1) ** (2 / k) - (P2 / P1) ** ((k + 1) / k))
+        f = Qm / (
+            (mu * P1)
+            * (
+                (2 * k / ((k - 1) * Rgas * T1))
+                * ((P2 / P1) ** (2 / k) - (P2 / P1) ** ((k + 1) / k))
+            )
+            ** 0.5
         )
-        f = Qm / (mu * P1 * multiplier * (1 / (Rgas * T1)) ** 0.5)
 
     # Convert area to diameter (in mm)
     d = math.sqrt(4 * f / math.pi) * 1000
@@ -83,7 +89,7 @@ if calc_type == "расход газа":
     )
     f = math.pi * (d / 1000) ** 2 / 4
 
-    # Flow Regime Logic Block
+    # Calc flow
     if P2 / P1 <= b_critical:
         st.success(
             f"Критическое истечение газа через дюзу. P2/P1 <= b_critical ({P2 / P1:.4f} <= {b_critical:.4f})"
@@ -100,10 +106,14 @@ if calc_type == "расход газа":
         sp_cr = (
             (2 * k) / (k - 1) * (P1 / po1) * (1 - (P2 / P1) ** ((k - 1) / k))
         ) ** 0.5
-        multiplier = math.sqrt(
-            (2 * k) / (k - 1) * ((P2 / P1) ** (2 / k) - (P2 / P1) ** ((k + 1) / k))
+        Qm = f * (
+            (mu * P1)
+            * (
+                (2 * k / ((k - 1) * Rgas * T1))
+                * ((P2 / P1) ** (2 / k) - (P2 / P1) ** ((k + 1) / k))
+            )
+            ** 0.5
         )
-        Qm = f * (mu * P1 * multiplier * (1 / (Rgas * T1)) ** 0.5)
 
     flow_si = Qm / po  # Convert mass flow rate to volumetric flow rate
     flow = flow_si * 3600  # Convert flow from m³/s to nm³/hr
